@@ -34,7 +34,13 @@ export class HttpJuegoController{
         //isNaN(parametrosRuta.edad)   //'ABC' true
         //isNaN(parametrosRuta.altura)   //'ABC' true
         //throw new BadRequestException('No son Numeros')
-
+        const paraNaNEdad: boolean = isNaN(parametrosRuta.edad);
+        const paraNaNAltura: boolean = isNaN(parametrosRuta.altura);
+        if(paraNaNAltura || paraNaNEdad){
+            throw new BadRequestException(
+                'No son Numeros'
+            )
+        }
         const edad = Number(parametrosRuta.edad);
         const altura = Number(parametrosRuta.altura);
         return edad + altura;
