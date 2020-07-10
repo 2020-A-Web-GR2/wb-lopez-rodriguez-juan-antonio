@@ -1,4 +1,18 @@
-import {BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Query} from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Header,
+    HttpCode,
+    Param,
+    Post,
+    Query,
+    Req, Res
+} from "@nestjs/common";
+import {MascotaCreateDto} from "./dto/mascota.create-dto";
+import {validate, ValidationError} from "class-validator";
 
 @Controller('juegos-http')
 export class HttpJuegoController{
@@ -66,13 +80,56 @@ export class HttpJuegoController{
     }
 
     @Post('parametros-cuerpo')
-    parametrosCuerpo(
+    @HttpCode(200)
+    async parametrosCuerpo(
         @Body() parametrosDeCuerpo
     ){
-        console.log('Parametros de cuerpo', parametrosDeCuerpo)
-        return 'Registro creado'
+        //Promesa
+        const mascotaValida = new MascotaCreateDto();
+        mascotaValida.casada = parametrosDeCuerpo.casada;
+        mascotaValida.edad = parametrosDeCuerpo.edad;
+        mascotaValida.ligada = parametrosDeCuerpo.ligada;
+        mascotaValida.nombre = parametrosDeCuerpo.nombre;
+        mascotaValida.peso = parametrosDeCuerpo.peso;
+
+        try {
+            const errores: ValidationError[] = await validate(mascotaValida)
+            if (errores.length > 0) {
+                console.error('Errores: ', errores);
+                throw new BadRequestException('Error validando');
+            } else {
+                const mensajeCorrecto = {
+                    mensaje: 'Se creo correctamente'
+                }
+                return mensajeCorrecto;
+            }
+        } catch (e) {
+            console.error('Error', e);
+            throw new BadRequestException('Error validando');
+        }
+    }
+    // COOKIES
+    // 1 Guardar cookie insegura
+    @Get('guardarCookieInsegura')
+    guardarCookieInsegura(
+        @Query() parametrosConsulta,
+        @Req() req, // request - peticion
+        @Res() res // response - respuesta
+    ){
+        res.cookie(
+            'galletaInsegura', // nombre
+            'Tengo Hambre', // valor
+            );
+
+        const mensaje = {
+            mensaje: 'ok'
+        }
+        //No se puede usar return cuando se usa @Res()
+        res.send(mensaje);
     }
 
 
+    // 2 Guardar cookie segura
+    // 3 Mostrar Cookies
 
 }
