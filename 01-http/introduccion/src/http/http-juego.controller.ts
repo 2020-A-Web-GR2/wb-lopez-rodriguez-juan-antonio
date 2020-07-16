@@ -3,8 +3,9 @@ import {
     Body,
     Controller,
     Delete,
-    Get,
+    Get, Head,
     Header,
+    Headers,
     HttpCode,
     Param,
     Post,
@@ -128,8 +129,61 @@ export class HttpJuegoController{
         res.send(mensaje);
     }
 
-
     // 2 Guardar cookie segura
+    //http://localhost:3001/juegos-http/guardarCookieSegura
+    @Get('guardarCookieSegura')
+    guardarCookieSegura(
+        @Query() parametrosConsulta,
+        @Req() req, // request - peticion
+        @Res() res // response - respuesta
+    ){
+        res.cookie(
+            'galletaSegura', // nombre
+            'Web :3', // valor
+            {
+                secure: true
+            }
+        );
+
+        const mensaje = {
+            mensaje: 'ok'
+        }
+        //No se puede usar return cuando se usa @Res()
+        res.send(mensaje);
+    }
+
     // 3 Mostrar Cookies
+    @Get('mostrarCookies')
+    mostrarCookies(
+        @Req() req
+    ){
+        const mensaje={
+            sinFirmar: req.cookies,
+            firmadas: req.signedCookies
+        }
+        return mensaje;
+    }
+
+    //guardar Cookie Firmada
+    @Get('guardarCookieFirmada')
+    public guardarCookieFirmada(
+        @Res() res,
+
+        // para obtener las cabeceras se usa el metodo
+        @Headers() headers      // peticion - request
+    ){
+        console.log('HEADERS: ', headers);
+        res.header('Cabecera', 'Dinamica'); // respuesta - response
+
+        res.cookie('firmada', 'poliburguer', {signed:true});
+        res.cookie('firmada2', 'GGG', {signed:true});
+        res.cookie('firmada3', 'hola a todos', {signed:true});
+
+        const mensaje = {
+            mensaje: 'ok'
+        };
+        res.send(mensaje);
+    }
+
 
 }
