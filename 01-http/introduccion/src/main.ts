@@ -10,7 +10,12 @@ async function bootstrap() {
   AQUI CONFIGURACION
   ANTES DEL APP.LISTEN()
   */
-  app.use(cookieParser())
+
+  //para inseguras y seguras
+  //app.use(cookieParser())
+
+  //para cookies firmadas
+  app.use(cookieParser('Me gustan los poliperros'));
   await app.listen(3001);
 }
 bootstrap();
