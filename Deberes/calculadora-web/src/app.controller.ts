@@ -61,8 +61,8 @@ export class AppController {
           }
           res.send(mensaje)
         }
-        return 'N1 y N2 deben ser numeros';
       }
+      res.send('N1 y N2 deben ser numeros')
     }
   }
 
@@ -101,8 +101,8 @@ export class AppController {
           }
           res.send(mensaje)
         }
-        return 'N1 y N2 deben ser numeros';
       }
+      res.send('N1 y N2 deben ser numeros')
     }
   }
 
@@ -143,8 +143,8 @@ export class AppController {
           }
           res.send(mensaje)
         }
-      return 'N1 y N2 deben ser numeros';
     }
+      res.send('N1 y N2 deben ser numeros')
   }
 }
 
@@ -166,7 +166,7 @@ export class AppController {
       if (parametrosDeRuta.n2 == 0) {
         const mensaje = 'N2 no puede ser 0';
         console.log(mensaje);
-        return mensaje;
+        res.send(mensaje);
       } else {
         if (n1 && n2) {
           const division = n1 / n2;
@@ -190,8 +190,8 @@ export class AppController {
             res.send(mensaje)
           }
         }
-        return 'N1 y N2 deben ser numeros';
       }
+      res.send('N1 y N2 deben ser numeros')
     }
   }
 
