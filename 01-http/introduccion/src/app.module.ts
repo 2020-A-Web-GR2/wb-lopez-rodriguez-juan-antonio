@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {HttpJuegoModule} from "./http/http-juego.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
+import {UsuarioEntity} from "./usuario/usuario.entity";
 
 @Module({
   imports: [
@@ -14,12 +15,12 @@ import {TypeOrmModule} from "@nestjs/typeorm";
           name: 'default',  // nombre conexion
           type: 'mysql',    // mysql postgres
           host: 'localhost',    // ip
-          port: 3306,       // puerto
-          username: 'root',     // usuario
+          port: 32780,       // puerto
+          username: 'juan',     // usuario
           password: 'root',     // password
-          database: 'test',     // base de datos
+          database: 'webDatabase',     // base de datos
           entities: [       // todas las entidades
-
+              UsuarioEntity
           ],
           synchronize: true,    // actualiza el esquema de la base de datos
           dropSchema: false,     // eliminar datos y el esquema de base de datos
