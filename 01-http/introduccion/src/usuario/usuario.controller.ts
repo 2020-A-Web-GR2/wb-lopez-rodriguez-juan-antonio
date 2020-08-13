@@ -1,4 +1,16 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    InternalServerErrorException, NotFoundException,
+    Param,
+    Post,
+    Put
+} from '@nestjs/common';
+import {UsuarioService} from "./usuario.service";
+import {tryCatch} from "rxjs/internal-compatibility";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -18,36 +30,68 @@ export class UsuarioController {
     ];
     public idActual = 3;
 
+    constructor( //Inyeccion de dependencias
+        private readonly _usuarioService: UsuarioService
+    ){
+
+    }
+
+
     //http://localhost:3001/usuario/
     @Get()
-    mostrarTodos(){
-        return this.arregloUsuarios
+    async mostrarTodos(){
+        try{
+            const respuesta = await this._usuarioService.buscarTodos();
+            return respuesta
+        } catch (e) {
+            console.log(e)
+            throw new InternalServerErrorException({
+                mensaje: 'Error del servidor',
+            })
+        }
     }
 
     //http://localhost:3001/usuario/
     @Post()
-    crearUno(
+    async crearUno(
         @Body() parametrosCuerpo
     ){
-        const nuevoUsuario = {
-            id: this.idActual + 1,
-            nombre: parametrosCuerpo.nombre
+        try {
+            //validacion del create dto
+            const respuesta = await this._usuarioService.crearUno(parametrosCuerpo);
+        } catch (e) {
+            console.log(e)
+            throw new BadRequestException({
+                mensaje: 'Error validando datos'
+            });
         }
-        this.arregloUsuarios.push(nuevoUsuario);
-        this.idActual = this.idActual +1;
-        return nuevoUsuario;
     }
+
+
 
     //http://localhost:3001/usuario/1
     @Get(':id')
-    verUno(
+    async verUno(
         @Param() parametrosRuta
-    ){
-        const indice = this.arregloUsuarios.findIndex(
-            (usuario)=> usuario.id == Number(parametrosRuta.id)
-        )
-        return this.arregloUsuarios[indice]
+    ) {
+        let respuesta;
+        try {
+            respuesta = await this._usuarioService.buscarUno(Number(parametrosRuta.id));
+        } catch (e) {
+            console.log(e)
+            throw new InternalServerErrorException({
+                mensaje: 'Error del servidor',
+            })
+        }
+        if (respuesta) {
+            return respuesta;
+        } else {
+            throw new NotFoundException({
+                mensaje: 'No existen registros'
+            })
+        }
     }
+
 
     //http://localhost:3001/usuario/1
     @Put(':id')

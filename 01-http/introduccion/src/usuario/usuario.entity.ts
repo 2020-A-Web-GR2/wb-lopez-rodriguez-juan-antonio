@@ -7,10 +7,10 @@ import {Column, Entity, Index, PrimaryGeneratedColumn} from "typeorm";
     'fechaNacimiento'   // Nombres de las propiedades en la clase
 ])
 
-@Index(
-    ['nombre', 'apellido', 'cedula'],
-    {unique: true}
-)
+//@Index(
+//    ['nombre', 'apellido', 'cedula'],
+//    {unique: true}
+//)
 
 
 @Entity('db_usuario') // nombre de la tabla usuario
