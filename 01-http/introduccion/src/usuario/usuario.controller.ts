@@ -7,7 +7,7 @@ import {
     InternalServerErrorException, NotFoundException,
     Param,
     Post,
-    Put
+    Put, Res
 } from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {tryCatch} from "rxjs/internal-compatibility";
@@ -184,6 +184,20 @@ export class UsuarioController {
         }
 
     }
+
+    // http://localhost:3001/usuario/vista/usuario
+    @Get('vista/usuario')
+    vistaUsuario(
+        @Res() res
+    ){
+        const nombreControlador = 'Adrian';
+        res.render(
+            'ejemplo', // Nombre de la vista (archivo)
+            {   // parametros de la vista
+                nombre: nombreControlador,
+            })
+    }
+
 
 
     /*
