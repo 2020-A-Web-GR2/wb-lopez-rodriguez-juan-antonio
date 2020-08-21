@@ -190,7 +190,7 @@ export class UsuarioController {
     vistaUsuario(
         @Res() res
     ){
-        const nombreControlador = 'Adrian';
+        const nombreControlador = 'Juan';
         res.render(
             'ejemplo', // Nombre de la vista (archivo)
             {   // parametros de la vista
