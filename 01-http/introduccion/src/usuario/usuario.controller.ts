@@ -189,14 +189,42 @@ export class UsuarioController {
     @Get('vista/usuario')
     vistaUsuario(
         @Res() res
-    ){
-        const nombreControlador = 'Juan';
+    ) {
+        const nombreControlador = 'Adrian';
         res.render(
-            'ejemplo', // Nombre de la vista (archivo)
-            {   // parametros de la vista
+            'usuario/ejemplo', // Nombre de la vista (archivo)
+            { // Parametros de la vista
                 nombre: nombreControlador,
             })
     }
+
+//http://localhost:3001/usuario/vista/faq
+    @Get('vista/faq')
+    faq(
+        @Res() res
+    ) {
+
+        res.render('usuario/faq')
+    }
+
+    // http://localhost:3001/usuario/vista/inicio
+    @Get('vista/inicio')
+    inicio(
+        @Res() res
+    ) {
+
+        res.render('usuario/inicio')
+    }
+
+ //http://localhost:3001/usuario/vista/login
+    @Get('vista/login')
+    login(
+        @Res() res
+    ) {
+
+        res.render('usuario/login')
+    }
+
 
 
 
