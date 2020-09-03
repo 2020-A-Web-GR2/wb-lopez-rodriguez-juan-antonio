@@ -209,12 +209,27 @@ export class UsuarioController {
 
     // http://localhost:3001/usuario/vista/inicio
     @Get('vista/inicio')
-    inicio(
+    async inicio(
         @Res() res
     ) {
-
-        res.render('usuario/inicio')
+        let resultadoEncontrado
+        try {
+            resultadoEncontrado = await this._usuarioService.buscarTodos();
+        } catch (error) {
+            throw new InternalServerErrorException('Error encontrando usuarios')
+        }
+        if (resultadoEncontrado) {
+            res.render(
+                'usuario/inicio',
+                {
+                    arregloUsuarios: resultadoEncontrado
+                });
+        } else {
+            throw new NotFoundException('No se encontraron usuarios')
+        }
     }
+
+
 
  //http://localhost:3001/usuario/vista/login
     @Get('vista/login')
@@ -225,6 +240,15 @@ export class UsuarioController {
         res.render('usuario/login')
     }
 
+
+    //http://localhost:3001/usuario/vista/crear
+    @Get('vista/crear')
+    crearUsuarioVista(
+        @Res() res
+    ) {
+
+        res.render('usuario/crear')
+    }
 
 
 
