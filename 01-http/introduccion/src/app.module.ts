@@ -21,7 +21,7 @@ import {MascotaEntity} from "./mascota/mascota.entity";
           name: 'default',  // nombre conexion
           type: 'mysql',    // mysql postgres
           host: 'localhost',    // ip
-          port: 32769,       // puerto
+          port: 32785,       // puerto
           username: 'juan',     // usuario
           password: 'root',     // password
           database: 'webDatabase',     // base de datos
