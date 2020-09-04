@@ -7,7 +7,7 @@ import {
     InternalServerErrorException, NotFoundException,
     Param,
     Post,
-    Put, Res
+    Put, Query, Res
 } from '@nestjs/common';
 import {UsuarioService} from "./usuario.service";
 import {tryCatch} from "rxjs/internal-compatibility";
@@ -191,7 +191,7 @@ export class UsuarioController {
         @Res() res
     ) {
         const nombreControlador = 'Adrian';
-        res.render(
+        return res.render(
             'usuario/ejemplo', // Nombre de la vista (archivo)
             { // Parametros de la vista
                 nombre: nombreControlador,
@@ -204,7 +204,7 @@ export class UsuarioController {
         @Res() res
     ) {
 
-        res.render('usuario/faq')
+        return res.render('usuario/faq')
     }
 
     // http://localhost:3001/usuario/vista/inicio
@@ -219,7 +219,7 @@ export class UsuarioController {
             throw new InternalServerErrorException('Error encontrando usuarios')
         }
         if (resultadoEncontrado) {
-            res.render(
+            return res.render(
                 'usuario/inicio',
                 {
                     arregloUsuarios: resultadoEncontrado
@@ -237,20 +237,78 @@ export class UsuarioController {
         @Res() res
     ) {
 
-        res.render('usuario/login')
+        return res.render('usuario/login')
     }
 
 
     //http://localhost:3001/usuario/vista/crear
-    @Get('vista/crear')
+    @Get('vista/crear') // Controlador
     crearUsuarioVista(
+        @Query() parametrosConsulta,
         @Res() res
     ) {
-
-        res.render('usuario/crear')
+        return res.render(
+            'usuario/crear',
+            {
+                error: parametrosConsulta.error,
+                nombre: parametrosConsulta.nombre,
+                apellido: parametrosConsulta.apellido,
+                cedula: parametrosConsulta.cedula
+            }
+        )
     }
 
 
+    @Post('crearDesdeVista')
+    async crearDesdeVista(
+        @Body() parametrosCuerpo,
+        @Res() res,
+    ) {
+        // Validar los datos con un rico DTO
+        let nombreApellidoConsulta;
+        let cedulaConsulta;
+        if (parametrosCuerpo.cedula && parametrosCuerpo.nombre && parametrosCuerpo.apellido) {
+            nombreApellidoConsulta = `&nombre=${parametrosCuerpo.nombre}&apellido=${parametrosCuerpo.apellido}`
+            if (parametrosCuerpo.cedula.length === 10) {
+                cedulaConsulta = `&cedula=${parametrosCuerpo.cedula}`
+            } else {
+                const mensajeError = 'Cedula incorrecta'
+                return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta)
+            }
+        } else {
+            const mensajeError = 'Enviar cedula(10) nombre y apellido'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError)
+        }
+        let respuestaCreacionUsuario;
+        try {
+            respuestaCreacionUsuario = await this._usuarioService.crearUno(parametrosCuerpo);
+        } catch (error) {
+            console.error(error);
+            const mensajeError = 'Error creando usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta + cedulaConsulta)
+        }
+        if (respuestaCreacionUsuario) {
+            return res.redirect('/usuario/vista/inicio');
+        } else {
+            const mensajeError = 'Error creando usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta + cedulaConsulta);
+        }
+    }
+
+    @Post('eliminarDesdeVista/:id')
+    async eliminarDesdeVista(
+        @Param() parametrosRuta,
+        @Res() res
+    ) {
+        try {
+            const id = Number(parametrosRuta.id);
+            await this._usuarioService.eliminarUno(id)
+            return res.redirect('/usuario/vista/inicio?mensaje=Usuario eliminado')
+        } catch (error) {
+            console.log(error);
+            return res.redirect('/usuario/vista/inicio?error=Error eliminando usuario')
+        }
+    }
 
     /*
     //Formatos usados en la web
