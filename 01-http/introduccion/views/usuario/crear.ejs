@@ -3,21 +3,27 @@
 
 <h1>Crear usuario</h1>
 
+<% if(typeof error !== undefined) {%>
+        <p>MENSAJE ERROR: <%= error %></p>
+<% } %>
 <form action="/usuario/crearDesdeVista"
       method="POST">
-        <label for="nombreID">Nombre:</label>
-        <input id="nombreID" type="text" name="nombre">
+    <% const existeNombre = typeof nombre !== 'undefined' %>
+    <label for="nombreID">Nombre:</label>
+    <input id="nombreID" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
     <br>
-        <label for="apellidoID">Apellido:</label>
-        <input id="apellidoID" type="text" name="apellido">
+    <% const existeApellido = typeof apellido !== 'undefined' %>
+    <label for="apellidoID">Apellido:</label>
+    <input id="apellidoID" type="text" name="apellido" value="<%= existeApellido ? apellido : '' %>">
     <br>
-        <label for="cedulaID">Cedula:</label>
-        <input id="cedulaID" type="text" name="cedula">
+    <% const existeCedula = typeof cedula !== 'undefined' %>
+    <label for="cedulaID">Cedula:</label>
+    <input id="cedulaID" type="text" name="cedula" value="<%= existeCedula ? cedula : '' %>">
     <br>
-        <button type="submit">SUBMIT</button>
-        <button type="reset">RESET</button>
-        <button type="button">BUTTON</button>
-
+    <button type="submit">SUBMIT</button>
+    <button type="reset">RESET</button>
+    <button type="button">BUTTON</button>
+    <button>QUE TIPO SOY?</button>
 </form>
 
 <!--<form action="https://www.google.com" method="GET">-->
