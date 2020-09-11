@@ -216,7 +216,7 @@ export class UsuarioController {
     ) {
         let resultadoEncontrado
         try {
-            resultadoEncontrado = await this._usuarioService.buscarTodos();
+            resultadoEncontrado = await this._usuarioService.buscarTodos(parametrosConsulta.busqueda);
         } catch (error) {
             throw new InternalServerErrorException('Error encontrando usuarios')
         }
