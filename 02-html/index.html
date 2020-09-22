@@ -4,94 +4,372 @@
         <meta charset="UTF-8">
         <title>EPN - Ejemplo</title>
 
+        <!--        BUNDLING -->
+        <!--        <link rel="stylesheet" href="/css/botones.css">-->
+        <!--        <link rel="stylesheet" href="/css/estilos-generales.css">-->
+        <!--        <link rel="stylesheet" href="/css/tablas.css">-->
+        <!--        MINIFCATION   -->
+<!--        <link rel="stylesheet" href="/css/completo.min.css">-->
+
+        <!-- CSS only -->
+<!--        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">-->
+
+<!--        <style>-->
+<!--          /*  !* Query selectors *!*/-->
+<!--          /*  !**/-->
+<!--          /*      -Busqueda por nombre de etiqueta*/-->
+<!--          /*      -Busqueda por id*/-->
+<!--          /*      -Busqueda por clase*/-->
+<!--          /*      Sintaxis:*/-->
+<!--          /*      query-selector{*/-->
+<!--          /*          // contenido de estilos*/-->
+<!--          /*      }*/-->
+<!--          /*  *!*/-->
+<!--          /*  h1{*/-->
+<!--          /*      color:brown;*/-->
+<!--          /*  }*/-->
+<!--          /*  #rojo{*/-->
+<!--          /*      color:green;*/-->
+<!--          /*  }*/-->
+<!--          /*  .verde{*/-->
+<!--          /*      color:greenyellow;*/-->
+<!--          /*  }*/-->
+
+<!--          /*  #verde{*/-->
+<!--          /*      background-color: greenyellow;*/-->
+<!--          /*  }*/-->
+<!--          /*  .azul{*/-->
+<!--          /*      background-color: lightblue;*/-->
+<!--          /*  }*/-->
+<!--          /*  p{*/-->
+<!--          /*      background-color: orange;*/-->
+<!--          /*  }*/-->
+
+<!--          /*  !*Combinators*!*/-->
+
+<!--          /*  li.lista > p {*/-->
+<!--          /*      background-color: pink;*/-->
+<!--          /*  }*/-->
+<!--          /*  li.lista {*/-->
+<!--          /*      color: deeppink;*/-->
+<!--          /*  }*/-->
+
+<!--          /*  h1{*/-->
+<!--          /*      border-width: 3px;*/-->
+<!--          /*      border-color: blue;*/-->
+<!--          /*      border-style: solid;*/-->
+<!--          /*      !*en una linea el border*!*/-->
+<!--          /*!*      border: 3px blue solid; *!*/-->
+<!--          /*      padding: 30px;*/-->
+<!--          /*      margin-top: 50px;*/-->
+<!--          /*      margin-left: 50px;*/-->
+<!--          /*      margin-bottom: 0px;*/-->
+<!--          /*      margin-right: 0px;*/-->
+<!--          /*      background-color: red;*/-->
+<!--          /*  }*/-->
+<!--        </style>-->
+
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         <style>
-            body{ color: blue}
+            .rojo{background-color:red;
+            }
+            .azul{background-color: blue;
+            }
+            .amarillo{background-color:yellow;
+            }
+            .rosado{background-color:pink;
+            }
+            .verde{background-color: green;
+            }
+            .naranja{background-color:orange;
+            }
+
         </style>
-<!--        BUNDLING -->
-<!--        <link rel="stylesheet" href="/css/botones.css">-->
-<!--        <link rel="stylesheet" href="/css/estilos-generales.css">-->
-<!--        <link rel="stylesheet" href="/css/tablas.css">-->
-<!--        MINIFCATION   -->
-        <link rel="stylesheet" href="/css/completo.min.css">
     </head>
     <body>
-<!--    Header -->
-        <h1>C1</h1>
-        <h2>C2</h2>
-        <h3>C3</h3>
-        <h4>C4</h4>
-        <h5>C5</h5>
-        <h6>C6</h6>
-<!-- parrafo -->
-        <p>Soy un parrafo</p>
 
-<!--Listas ordenadas y no ordenadas -->
-<!--Unorder list-->
-    <ul>
-    <!-- list item       -->
-        <li>Pan</li>
-        <li>Queso</li>
-        <li>Huevo</li>
-    </ul>
-<!--ordered list-->
-    <ol>
-        <li>Lunes</li>
-        <li>Martes</li>
-        <li>Miercoles</li>
-    </ol>
-
-<!--imagenes-->
-    <img src="https://s3-us-west-2.amazonaws.com/lasaga-blog/media/original_images/grupo_imagen.jpg"
-         alt="letras que dicen imagenes en color rojo y azul">
-
-<!--boton -->
-    <button type="button">
-        Aceptar
-    </button>
-
-<!--Anclas -->
-    <a href="https://www.google.com.ec">
-        <button type="button">
-        Ir a google
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-    </a>
-    <a href="https://www.google.com.ec">
-            <p>Ir a google</p>
-    </a>
-    <a href="https://www.google.com.ec">
-        <img src="https://s3-us-west-2.amazonaws.com/lasaga-blog/media/original_images/grupo_imagen.jpg"
-             alt="letras que dicen imagenes en color rojo y azul" width="300" height="300">
-    </a>
 
-<!-- Tablas -->
-    <table>
-<!--  table header  -->
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-        </tr>
-<!--   table detail-->
-        <tr>
-            <td>Adrian</td>
-            <td>Eguez</td>
-        </tr>
-        <tr>
-            <td>Juan</td>
-            <td>Lopez</td>
-        </tr>
-        <tr>
-            <td>Antonio</td>
-            <td>Rodriguez</td>
-        </tr>
-    </table>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    
+    <h1>Componentes</h1>
+
+    <div class="container">
+        <div class="alert alert-primary" role="alert">
+            A simple primary alert—check it out!
+        </div>
+
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-warning">Warning</button>
+        <button type="button" class="btn btn-info">Info</button>
+        <button type="button" class="btn btn-light">Light</button>
+        <button type="button" class="btn btn-dark">Dark</button>
+
+        <button type="button" class="btn btn-link">Link</button>
+
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
-        <script>
-            console.log('Hola mundo')
-        </script>
-<!--        <script src="js/formularios.js"></script>-->
-<!--        <script src="js/funcionalidad.js"></script>-->
-<!--        <script src="js/tablas.js"></script>-->
-        <script src="js/completo.min.js"></script>
+    <!--        <h1>Grillas</h1>-->
+<!--  Numero de columnas 12      -->
+<!--        <div class="row">-->
+<!--            <div class="col-sm-4 amarillo" >-->
+<!--                1-->
+<!--            </div>-->
+<!--            <div class="col-sm-4 azul" >-->
+<!--                2-->
+<!--            </div>-->
+<!--            <div class="col-sm-4 rojo" >-->
+<!--                3-->
+<!--            </div>-->
+<!--            <div class="col-sm-12 rosado" >-->
+<!--                4-->
+<!--                <div class="row">-->
+<!--                    <div class="col-sm-8 verde">-->
+<!--                        8-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-4 azul">-->
+<!--                                1-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4 rojo">-->
+<!--                                2-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4 amarillo">-->
+<!--                                3-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-4 rojo">-->
+<!--                        4-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--            <div class="col-sm-6 azul" >-->
+<!--                5-->
+<!--            </div>-->
+<!--            <div class="col-sm-6 verde" >-->
+<!--                6-->
+<!--            </div>-->
+<!--            <div class="col-sm-1 naranja">1</div>-->
+<!--            <div class="col-sm-1 naranja">2</div>-->
+<!--            <div class="col-sm-1 naranja">3</div>-->
+<!--            <div class="col-sm-1 naranja">4</div>-->
+<!--            <div class="col-sm-1 naranja">5</div>-->
+<!--            <div class="col-sm-1 naranja">6</div>-->
+<!--            <div class="col-sm-1 naranja">7</div>-->
+<!--            <div class="col-sm-1 naranja">8</div>-->
+<!--            <div class="col-sm-1 naranja">9</div>-->
+<!--            <div class="col-sm-1 naranja">10</div>-->
+<!--            <div class="col-sm-1 naranja">11</div>-->
+<!--            <div class="col-sm-1 naranja">12</div>-->
+
+<!--            <div class="col-sm-6 azul">12</div>-->
+<!--            <div class="col-sm-6 azul">12</div>-->
+<!--            <div class="col-md-6 rojo">12</div>-->
+<!--            <div class="col-md-6 rojo">12</div>-->
+<!--            <div class="col-lg-6 amarillo">12</div>-->
+<!--            <div class="col-lg-6 amarillo">12</div>-->
+
+<!--        </div>-->
+
+
+
+
+      <div>
+<!--        <h1>Cabecera <span>importante</span></h1>-->
+<!--        <div>Contenedor</div>-->
+<!--        <p>Parrafo</p>-->
+
+
+<!--        <h1>Capitulo</h1>-->
+<!--        <h1 class="verde">Numero uno</h1>-->
+<!--        <p id="rojo">Parrafo uno</p>-->
+<!--        <p class="verde">Parrado dos</p>-->
+<!--        <p style="color:yellow">Parrado tres</p>-->
+<!--        <p id="verde"-->
+<!--           class="azul"-->
+<!--           style="background-color:yellow"-->
+<!--        >Parrafo cuatro</p>-->
+
+<!--        <ul>-->
+<!--            <li class="lista">-->
+<!--                <p>Uno</p>-->
+<!--            </li>-->
+<!--            <li class="lista">-->
+<!--                <p>Dos</p>-->
+<!--            </li>-->
+<!--            <li class="lista">-->
+<!--                <p>Tres</p>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <li>-->
+<!--                <p>Uno</p>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <p>Dos</p>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <p>Tres</p>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+
+
+<!--&lt;!&ndash;    Header &ndash;&gt;-->
+<!--        <h1>C1</h1>-->
+<!--        <h2>C2</h2>-->
+<!--        <h3>C3</h3>-->
+<!--        <h4>C4</h4>-->
+<!--        <h5>C5</h5>-->
+<!--        <h6>C6</h6>-->
+<!--&lt;!&ndash; parrafo &ndash;&gt;-->
+<!--        <p>Soy un parrafo</p>-->
+
+<!--&lt;!&ndash;Listas ordenadas y no ordenadas &ndash;&gt;-->
+<!--&lt;!&ndash;Unorder list&ndash;&gt;-->
+<!--    <ul>-->
+<!--    &lt;!&ndash; list item       &ndash;&gt;-->
+<!--        <li>Pan</li>-->
+<!--        <li>Queso</li>-->
+<!--        <li>Huevo</li>-->
+<!--    </ul>-->
+<!--&lt;!&ndash;ordered list&ndash;&gt;-->
+<!--    <ol>-->
+<!--        <li>Lunes</li>-->
+<!--        <li>Martes</li>-->
+<!--        <li>Miercoles</li>-->
+<!--    </ol>-->
+
+<!--&lt;!&ndash;imagenes&ndash;&gt;-->
+<!--    <img src="https://s3-us-west-2.amazonaws.com/lasaga-blog/media/original_images/grupo_imagen.jpg"-->
+<!--         alt="letras que dicen imagenes en color rojo y azul">-->
+
+<!--&lt;!&ndash;boton &ndash;&gt;-->
+<!--    <button type="button">-->
+<!--        Aceptar-->
+<!--    </button>-->
+
+<!--&lt;!&ndash;Anclas &ndash;&gt;-->
+<!--    <a href="https://www.google.com.ec">-->
+<!--        <button type="button">-->
+<!--        Ir a google-->
+<!--        </button>-->
+<!--    </a>-->
+<!--    <a href="https://www.google.com.ec">-->
+<!--            <p>Ir a google</p>-->
+<!--    </a>-->
+<!--    <a href="https://www.google.com.ec">-->
+<!--        <img src="https://s3-us-west-2.amazonaws.com/lasaga-blog/media/original_images/grupo_imagen.jpg"-->
+<!--             alt="letras que dicen imagenes en color rojo y azul" width="300" height="300">-->
+<!--    </a>-->
+
+<!--&lt;!&ndash; Tablas &ndash;&gt;-->
+<!--    <table>-->
+<!--&lt;!&ndash;  table header  &ndash;&gt;-->
+<!--        <tr>-->
+<!--            <th>Nombre</th>-->
+<!--            <th>Apellido</th>-->
+<!--        </tr>-->
+<!--&lt;!&ndash;   table detail&ndash;&gt;-->
+<!--        <tr>-->
+<!--            <td>Adrian</td>-->
+<!--            <td>Eguez</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Juan</td>-->
+<!--            <td>Lopez</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Antonio</td>-->
+<!--            <td>Rodriguez</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+
+<!--        <script>-->
+<!--            console.log('Hola mundo')-->
+<!--        </script>-->
+<!--&lt;!&ndash;        <script src="js/formularios.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;        <script src="js/funcionalidad.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;        <script src="js/tablas.js"></script>&ndash;&gt;-->
+<!--        <script src="js/completo.min.js"></script>-->
+
+      </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </body>
 </html>
