@@ -1,4 +1,5 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
+import {CancionService} from "./cancion.service";
 
 @Controller('cancion')
 export class CancionController{
@@ -19,22 +20,28 @@ export class CancionController{
     ]
     public idActualCancion = 3;
 
+    constructor(
+        private readonly _cancionService:CancionService
+    ) {
+    }
+
     @Get()
     mostrarTodosCanciones(){
         return this.arregloCanciones
     }
 
     @Post()
-    crearUnaCancion(
+    async crearUnaCancion(
         @Body() parametrosCuerpo
     ){
-        const nuevaCancion = {
-            id: this.idActualCancion + 1,
-            nombre: parametrosCuerpo.nombre
+        try{
+            const respuesta = await this._cancionService.crearUnaCancion(parametrosCuerpo)
+        }catch (e) {
+            console.log(e)
+            throw new BadRequestException({
+                mensaje: 'Error validando datos'
+            })
         }
-        this.arregloCanciones.push(nuevaCancion);
-        this.idActualCancion = this.idActualCancion + 1
-        return nuevaCancion
     }
 
     @Get(':id')

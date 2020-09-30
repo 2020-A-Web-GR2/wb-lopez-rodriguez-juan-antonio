@@ -10,6 +10,7 @@ import {VacunaModule} from "./vacuna/vacuna.module";
 import {VacunaEntity} from "./vacuna/vacuna.entity";
 import {MascotaEntity} from "./mascota/mascota.entity";
 import {CancionModule} from "./cancion/cancion.module";
+import {CancionEntity} from "./cancion/cancion.entity";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import {CancionModule} from "./cancion/cancion.module";
               UsuarioEntity,
               VacunaEntity,
               MascotaEntity,
+              CancionEntity,
           ],
           synchronize: true,    // actualiza el esquema de la base de datos
           dropSchema: false,     // eliminar datos y el esquema de base de datos

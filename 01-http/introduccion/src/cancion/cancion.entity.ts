@@ -43,8 +43,9 @@ export class CancionEntity{
 
     @Column({
         name: 'anio',
+        type: 'varchar',
         nullable: true,
-        type: 'number',
+        length: '4'
     })
     anio?:string
 
