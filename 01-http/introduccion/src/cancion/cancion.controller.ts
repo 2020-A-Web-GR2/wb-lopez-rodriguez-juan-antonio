@@ -130,24 +130,6 @@ export class CancionController{
         }
     }
 
-    @Get('vista/loginCancion')
-    vistaLogin(
-        @Res() res
-    ){
-        res.render(
-            'cancion/loginCancion',
-           )
-    }
-
-    @Get('vista/crearCancion')
-    vistaCrearCancion(
-        @Res() res
-    ){
-        res.render(
-            'cancion/crearCancion',
-        )
-    }
-
     @Post('crearCancionDesdeVista')
     async crearCancionDesdeVista(
         @Body() parametrosCuerpo
@@ -163,9 +145,28 @@ export class CancionController{
         if (respuestaCreacionCancion){
             return 'Cancion creada'
         }else{
-            throw new InternalServerErrorException('Error creando cancion')
+            throw new InternalServerErrorException('Error creando cancion');
         }
     }
+
+    @Get('vista/loginCancion')
+    vistaLogin(
+        @Res() res
+    ){
+        return res.render(
+            'cancion/loginCancion',
+        )
+    }
+
+    @Get('vista/crearCancion')
+    vistaCrearCancion(
+        @Res() res
+    ){
+        return res.render(
+            'cancion/crearCancion',
+        )
+    }
+
 
 
 }
