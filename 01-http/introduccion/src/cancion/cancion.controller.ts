@@ -14,21 +14,6 @@ import {CancionService} from "./cancion.service";
 @Controller('cancion')
 export class CancionController{
 
-    public arregloCanciones = [
-        {
-            id:1,
-            nombre:"Cancion1"
-        },
-        {
-            id:2,
-            nombre:"Cancion2"
-        },
-        {
-            id:3,
-            nombre:"Cancion3"
-        },
-    ]
-    public idActualCancion = 3;
 
     constructor(
         private readonly _cancionService:CancionService
@@ -125,15 +110,24 @@ export class CancionController{
     }
 
     @Get('vista/cancion')
-    vistaCancion(
+    async vistaCancion(
         @Res() res
     ){
-        const nombreControlador = 'Juan';
-        res.render(
-            'cancion/inicioCancion',
-            {
-             nombre: nombreControlador,
-            })
+        let resultadoEncotrado
+        try{
+            resultadoEncotrado = await this._cancionService.buscarTodasCanciones();
+        }catch (e) {
+            throw new InternalServerErrorException('Error encontrando canciones')
+        }
+        if(resultadoEncotrado){
+            res.render(
+                'cancion/inicioCancion',
+                {
+                    arregloCanciones: resultadoEncotrado
+                })
+        }else{
+            throw new NotFoundException('No se encontraron canciones')
+        }
     }
 
     @Get('vista/loginCancion')

@@ -1,5 +1,24 @@
-<!--<p> hola <%= nombre %></p>-->
-
 <%- include('../compartidoCancion/menu-component') %>
+<%- include('../compartidoCancion/estiloscancion-component') %>
 
 <h1>Inicio</h1>
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Album</th>
+        <th>Autor</th>
+        <th>Genero</th>
+        <th>Año</th>
+    </tr>
+    <% arregloCanciones.forEach( (objeto)=> { %>
+    <tr>
+        <td><%=objeto.nombre %></td>
+        <td><%=objeto.album %></td>
+        <td><%=objeto.autor %></td>
+        <td><%=objeto.genero %></td>
+        <td><%=objeto.anio %></td>
+    </tr>
+    <% }) %>
+
+</table>
