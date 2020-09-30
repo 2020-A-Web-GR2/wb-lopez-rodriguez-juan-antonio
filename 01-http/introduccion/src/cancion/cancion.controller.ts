@@ -7,7 +7,7 @@ import {
     InternalServerErrorException, NotFoundException,
     Param,
     Post,
-    Put
+    Put, Res
 } from "@nestjs/common";
 import {CancionService} from "./cancion.service";
 
@@ -122,7 +122,30 @@ export class CancionController{
                 mensaje: 'Error validando datos'
             })
         }
+    }
 
+    @Get('vista/cancion')
+    vistaCancion(
+        @Res() res
+    ){
+        const nombreControlador = 'Juan';
+        res.render(
+            'cancion/inicioCancion',
+            {
+             nombre: nombreControlador,
+            })
+    }
+
+    @Get('vista/loginCancion')
+    vistaLogin(
+        @Res() res
+    ){
+        const nombreControlador = 'Juan';
+        res.render(
+            'cancion/loginCancion',
+            {
+                nombre: nombreControlador,
+            })
     }
 
 }
