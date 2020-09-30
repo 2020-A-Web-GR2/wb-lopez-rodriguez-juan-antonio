@@ -117,7 +117,7 @@ export class CancionController {
             throw new InternalServerErrorException('Error encontrando canciones')
         }
         if(resultadoEncotrado){
-            res.render(
+            return res.render(
                 'inicio',
                 {
                     arregloCanciones: resultadoEncotrado
@@ -131,7 +131,7 @@ export class CancionController {
     vistaLogin(
         @Res() res
     ) {
-        res.render(
+        return res.render(
             'login',
         )
     }
@@ -140,31 +140,44 @@ export class CancionController {
     vistaCrear(
         @Res() res
     ) {
-        res.render(
+        return res.render(
             'crear',
         )
     }
 
     @Post('crearCancionDesdeVista')
     async crearCancionDesdeVista(
-        @Body() parametrosCuerpo
+        @Body() parametrosCuerpo,
+        @Res() res,
     ) {
         let respuestaCreacionCancion;
         try{
             respuestaCreacionCancion = await this._cancionService.crearUnaCancion(parametrosCuerpo);
-            console.log('respuesta aqui', respuestaCreacionCancion)
         }catch (e) {
             console.log(e);
             throw new InternalServerErrorException('Error creando cancion')
         }
         if (respuestaCreacionCancion){
-            return 'Cancion creada'
+            return res.redirect('/cancion/vista/cancion')
         }else{
             throw new InternalServerErrorException('Error creando cancion');
         }
     }
 
-
+    @Post('eliminarCancionDesdeVista/:id')
+    async eliminarCancionDesdeVista(
+        @Param() parametrosRuta,
+        @Res() res
+    ){
+        try {
+         const id = Number(parametrosRuta.id);
+         await this._cancionService.eliminarUnaCancion(id);
+         return res.redirect('/cancion/vista/cancion?mensaje=Cancion Eliminada');
+        }catch (e) {
+            console.log(e)
+            throw new InternalServerErrorException('Error eliminando cancion')
+        }
+    }
 
 
 

@@ -27,7 +27,12 @@
         <td>
             <button>Ver</button>
             <button>Editar</button>
-            <button>Eliminar</button>
+
+            <form action="/cancion/eliminarCancionDesdeVista/<%= objeto.id %>"
+            method="POST"
+            >
+            <button type="submit">Eliminar</button>
+            </form>
         </td>
     </tr>
     <% }) %>
