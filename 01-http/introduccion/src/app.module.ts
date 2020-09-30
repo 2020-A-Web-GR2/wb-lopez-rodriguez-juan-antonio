@@ -9,6 +9,7 @@ import {MascotaModule} from "./mascota/mascota.module";
 import {VacunaModule} from "./vacuna/vacuna.module";
 import {VacunaEntity} from "./vacuna/vacuna.entity";
 import {MascotaEntity} from "./mascota/mascota.entity";
+import {CancionModule} from "./cancion/cancion.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {MascotaEntity} from "./mascota/mascota.entity";
       UsuarioModule,
       MascotaModule,
       VacunaModule,
+      CancionModule,
       TypeOrmModule.forRoot({
           name: 'default',  // nombre conexion
           type: 'mysql',    // mysql postgres
