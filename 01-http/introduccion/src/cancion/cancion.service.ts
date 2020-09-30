@@ -24,4 +24,12 @@ export class CancionService {
         return this.repositorio.findOne(id)
     }
 
+    editarUnaCancion(cancionEditada: CancionEntity){
+        return this.repositorio.save(cancionEditada);
+    }
+
+    eliminarUnaCancion(id: number){
+        return this.repositorio.delete(id);
+    }
+
 }

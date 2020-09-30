@@ -87,26 +87,42 @@ export class CancionController{
 
 
     @Put(':id')
-    editarUnaCancion(
+    async editarUnaCancion(
         @Param() parametrosRuta,
         @Body() parametrosCuerpo
     ){
-        const indice = this.arregloCanciones.findIndex(
-            (cancion)=> cancion.id == Number(parametrosRuta.id)
-        )
-        this.arregloCanciones[indice].nombre = parametrosCuerpo.nombre;
-        return this.arregloCanciones[indice]
+        const id = Number(parametrosRuta.id);
+        const cancionEditada = parametrosCuerpo;
+        cancionEditada.id = id;
+        console.log('CancionEditada', cancionEditada);
+        try{
+            const respuesta = await this._cancionService.editarUnaCancion(cancionEditada);
+            return respuesta;
+        }catch (e) {
+            console.log(e)
+            throw new BadRequestException({
+                mensaje: 'Error validando datos'
+            })
+        }
     }
 
     @Delete(':id')
-    eliminarUnaCancion(
+    async eliminarUnaCancion(
         @Param() parametrosRuta
     ){
-        const indice = this.arregloCanciones.findIndex(
-            (cancion)=> cancion.id == Number(parametrosRuta.id)
-        )
-        this.arregloCanciones.splice(indice, 1)
-        return this.arregloCanciones[indice]
+        const id = Number(parametrosRuta.id)
+        try{
+            const respuesta = await this._cancionService.eliminarUnaCancion(id);
+            return {
+                mensaje: 'Registro con id ' + id + ' eliminado'
+            }
+        }catch (e) {
+            console.log(e)
+            throw new BadRequestException({
+                mensaje: 'Error validando datos'
+            })
+        }
+
     }
 
 }
