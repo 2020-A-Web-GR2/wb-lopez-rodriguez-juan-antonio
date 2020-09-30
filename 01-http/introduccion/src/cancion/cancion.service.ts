@@ -16,5 +16,12 @@ export class CancionService {
         return this.repositorio.save(nuevaCancion)
     }
 
+    buscarTodasCanciones(){
+        return this.repositorio.find()
+    }
+
+    buscarUnaCancion(id: number){
+        return this.repositorio.findOne(id)
+    }
 
 }

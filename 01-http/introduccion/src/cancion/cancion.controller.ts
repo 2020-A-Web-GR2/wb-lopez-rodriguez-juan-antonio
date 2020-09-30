@@ -1,4 +1,14 @@
-import {BadRequestException, Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    InternalServerErrorException, NotFoundException,
+    Param,
+    Post,
+    Put
+} from "@nestjs/common";
 import {CancionService} from "./cancion.service";
 
 @Controller('cancion')
@@ -26,8 +36,17 @@ export class CancionController{
     }
 
     @Get()
-    mostrarTodosCanciones(){
-        return this.arregloCanciones
+    async mostrarTodosCanciones(){
+        try{
+            const respuesta = await this._cancionService.buscarTodasCanciones();
+            return  respuesta;
+        }catch (e) {
+            console.log(e);
+            throw new InternalServerErrorException({
+                mensaje: 'Error del servidor'
+            })
+        }
+
     }
 
     @Post()
@@ -45,14 +64,27 @@ export class CancionController{
     }
 
     @Get(':id')
-    verUnaCancion(
+    async verUnaCancion(
         @Param() parametrosRuta
     ){
-        const indice = this.arregloCanciones.findIndex(
-            (cancion)=>cancion.id == Number(parametrosRuta.id)
-        )
-        return this.arregloCanciones[indice]
+        let respuesta;
+        try{
+            respuesta = await this._cancionService.buscarUnaCancion(Number(parametrosRuta.id));
+        }catch (e) {
+            console.log(e)
+            throw new BadRequestException({
+                mensaje: 'Error validando datos'
+            })
+        }
+        if(respuesta){
+            return respuesta;
+        }else{
+            throw new NotFoundException({
+                mensaje:'No existen registros'
+            })
+        }
     }
+
 
     @Put(':id')
     editarUnaCancion(
