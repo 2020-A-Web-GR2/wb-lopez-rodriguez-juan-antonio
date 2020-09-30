@@ -134,12 +134,19 @@ export class CancionController{
     vistaLogin(
         @Res() res
     ){
-        const nombreControlador = 'Juan';
         res.render(
             'cancion/loginCancion',
-            {
-                nombre: nombreControlador,
-            })
+           )
     }
+
+    @Get('vista/crearCancion')
+    vistaCrearCancion(
+        @Res() res
+    ){
+        res.render(
+            'cancion/crearCancion',
+        )
+    }
+
 
 }
