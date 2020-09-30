@@ -148,5 +148,24 @@ export class CancionController{
         )
     }
 
+    @Post('crearCancionDesdeVista')
+    async crearCancionDesdeVista(
+        @Body() parametrosCuerpo
+    ){
+        let respuestaCreacionCancion;
+        try{
+            respuestaCreacionCancion = await this._cancionService.crearUnaCancion(parametrosCuerpo);
+            console.log('respuesta aqui', respuestaCreacionCancion)
+        }catch (e) {
+            console.log(e);
+            throw new InternalServerErrorException('Error creando cancion')
+        }
+        if (respuestaCreacionCancion){
+            return 'Cancion creada'
+        }else{
+            throw new InternalServerErrorException('Error creando cancion')
+        }
+    }
+
 
 }
