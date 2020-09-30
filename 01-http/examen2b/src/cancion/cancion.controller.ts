@@ -107,12 +107,25 @@ export class CancionController {
     }
 
     @Get('vista/cancion')
-    vistaCancion(
+    async vistaCancion(
         @Res() res
     ) {
-        res.render(
-            'inicio',
-            )
+        let resultadoEncotrado
+        try{
+            resultadoEncotrado = await this._cancionService.buscarTodasCanciones();
+        }catch (e) {
+            throw new InternalServerErrorException('Error encontrando canciones')
+        }
+        if(resultadoEncotrado){
+            res.render(
+                'inicio',
+                {
+                    arregloCanciones: resultadoEncotrado
+                })
+        }else{
+            throw new NotFoundException('No se encontraron canciones')
+        }
+
     }
     @Get('vista/login')
     vistaLogin(
@@ -123,28 +136,18 @@ export class CancionController {
         )
     }
 
+    @Get('vista/crear')
+    vistaCrear(
+        @Res() res
+    ) {
+        res.render(
+            'crear',
+        )
+    }
 
 
 
-    // async vistaCancion(
-    //     @Res() res
-    // ){
-    //     let resultadoEncotrado
-    //     try{
-    //         resultadoEncotrado = await this._cancionService.buscarTodasCanciones();
-    //     }catch (e) {
-    //         throw new InternalServerErrorException('Error encontrando canciones')
-    //     }
-    //     if(resultadoEncotrado){
-    //         res.render(
-    //             'cancion/inicioCancion',
-    //             {
-    //                 arregloCanciones: resultadoEncotrado
-    //             })
-    //     }else{
-    //         throw new NotFoundException('No se encontraron canciones')
-    //     }
-    // }
+
 
 
 }

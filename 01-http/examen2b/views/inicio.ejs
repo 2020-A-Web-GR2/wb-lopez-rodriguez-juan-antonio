@@ -3,3 +3,33 @@
 
 
 <h1>Inicio</h1>
+
+<a href="/cancion/vista/crear">
+    <button>Crear</button>
+</a>
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Album</th>
+        <th>Autor</th>
+        <th>Genero</th>
+        <th>Año</th>
+        <th>Acciones</th>
+    </tr>
+    <% arregloCanciones.forEach( (objeto)=> { %>
+    <tr>
+        <td><%=objeto.nombre %></td>
+        <td><%=objeto.album %></td>
+        <td><%=objeto.autor %></td>
+        <td><%=objeto.genero %></td>
+        <td><%=objeto.anio %></td>
+        <td>
+            <button>Ver</button>
+            <button>Editar</button>
+            <button>Eliminar</button>
+        </td>
+    </tr>
+    <% }) %>
+
+</table>
