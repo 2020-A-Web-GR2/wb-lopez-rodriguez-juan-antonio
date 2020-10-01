@@ -116,7 +116,8 @@ export class CancionController {
     ) {
         let resultadoEncotrado
         try {
-            resultadoEncotrado = await this._cancionService.buscarTodasCanciones();
+            console.log('busqueda', parametrosConsulta.busqueda)
+            resultadoEncotrado = await this._cancionService.buscarTodasCanciones(parametrosConsulta.busqueda);
         } catch (e) {
             throw new InternalServerErrorException('Error encontrando canciones')
         }
@@ -240,7 +241,7 @@ export class CancionController {
         cancionValida.genero = parametrosCuerpo.genero;
         cancionValida.autor = parametrosCuerpo.autor;
         cancionValida.anio = parametrosCuerpo.anio;
-        
+
         const cancionEditada = {
             id: Number(parametrosRuta.id),
             nombre: parametrosCuerpo.nombre,

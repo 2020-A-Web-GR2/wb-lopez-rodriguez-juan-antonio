@@ -1,7 +1,9 @@
 import {Injectable} from "@nestjs/common";
 import {CancionEntity} from "./cancion.entity";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
+import {FindManyOptions, Like, Repository} from "typeorm";
+
+import {UsuarioEntity} from "../../../introduccion/src/usuario/usuario.entity";
 
 @Injectable()
 export class CancionService{
@@ -16,8 +18,28 @@ export class CancionService{
         return this.repositorio.save(nuevaCancion)
     }
 
-    buscarTodasCanciones(){
-        return this.repositorio.find()
+    buscarTodasCanciones(textoDeConsulta?: string){
+        const consulta: FindManyOptions<CancionEntity>={
+            where:[
+                {
+                    nombre: Like(`%${textoDeConsulta}%`)
+                },
+                {
+                    autor: Like(`%${textoDeConsulta}%`)
+                },
+                {
+                    album: Like(`%${textoDeConsulta}%`)
+                },
+                {
+                    genero: Like(`%${textoDeConsulta}%`)
+                },
+                {
+                    anio: Like(`%${textoDeConsulta}%`)
+                }
+            ]
+        }
+
+        return this.repositorio.find(consulta)
     }
 
     buscarUnaCancion(id: number){

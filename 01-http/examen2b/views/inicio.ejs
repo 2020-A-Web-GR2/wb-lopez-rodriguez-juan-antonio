@@ -11,6 +11,13 @@
 <% if(typeof parametrosConsulta != 'undefined'){ %>
 <p>MENSAJE: <%=parametrosConsulta.mensaje%></p>
 <%}%>
+
+<form action="/cancion/vista/cancion" method="get">
+    <label for="busqueda">Busquea:</label>
+    <input type="text" id="busqueda" name="busqueda">
+    <button type="submit">Buscar</button>
+</form>
+
 <table>
     <tr>
         <th>Nombre</th>
