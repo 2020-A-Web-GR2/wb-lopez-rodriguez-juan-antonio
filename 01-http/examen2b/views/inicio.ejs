@@ -8,6 +8,9 @@
     <button>Crear</button>
 </a>
 
+<% if(typeof parametrosConsulta != 'undefined'){ %>
+<p>MENSAJE: <%=parametrosConsulta.mensaje%></p>
+<%}%>
 <table>
     <tr>
         <th>Nombre</th>
@@ -26,7 +29,10 @@
         <td><%=objeto.anio %></td>
         <td>
             <button>Ver</button>
+
+            <a href="/cancion/vista/editarCancion/<%=objeto.id%>">
             <button>Editar</button>
+            </a>
 
             <form action="/cancion/eliminarCancionDesdeVista/<%= objeto.id %>"
             method="POST"

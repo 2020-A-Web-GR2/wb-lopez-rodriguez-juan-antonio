@@ -1,26 +1,47 @@
 <%- include('componentes/menu-component') %>
 <%- include('componentes/estilos-component') %>
 
-<h1>Crear Cancion</h1>
+<% const existeCancion = typeof cancion !== 'undefined' %>
+<% let existeNombre = typeof nombre !== 'undefined' %>
+<% let existeAlbum = typeof album !== 'undefined' %>
+<% let existeAutor = typeof autor !== 'undefined' %>
+<% let existeGenero = typeof genero !== 'undefined' %>
+<% let existeAnio = typeof anio !== 'undefined' %>
 
-<form action="/cancion/crearCancionDesdeVista"
+<h1><%= existeCancion ? 'Editar' : 'Crear' %> cancion</h1>
+
+<% if(existeCancion){ %>
+    <% existeNombre= true %>
+    <% existeAlbum= true %>
+    <% existeAutor= true %>
+    <% existeGenero= true %>
+    <% existeAnio= true %>
+
+    <% nombre = cancion.nombre %>
+    <% album = cancion.album %>
+    <% autor = cancion.autor %>
+    <% genero = cancion.genero %>
+    <% anio = cancion.anio %>
+<% } %>
+
+
+<form action= " <%= existeCancion ? '/cancion/editarCancionDesdeVista/'+cancion.id : '/cancion/crearCancionDesdeVista' %> "
       method="POST">
     <label for="nombreID">Nombre:</label>
-    <input id="nombreID" type="text" name="nombre">
+    <input id="nombreID" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
     <br>
     <label for="albumID">Album:</label>
-    <input id="albumID" type="text" name="album">
+    <input id="albumID" type="text" name="album" value="<%= existeAlbum ? album : '' %>">
     <br>
     <label for="autorID">Autor:</label>
-    <input id="autorID" type="text" name="autor">
+    <input id="autorID" type="text" name="autor" value="<%= existeAutor ? autor : '' %>">
     <br>
     <label for="generoID">Genero:</label>
-    <input id="generoID" type="text" name="genero">
+    <input id="generoID" type="text" name="genero" value="<%= existeGenero ? genero : '' %>">
     <br>
     <label for="anioID">Año</label>
-    <input id="anioID" type="text" name="anio">
+    <input id="anioID" type="text" name="anio" value="<%= existeAnio ? anio : '' %>">
     <br>
     <button type="submit">SUBMIT</button>
     <button type="reset">RESET</button>
-    <button type="button">BUTTON</button>
 </form>

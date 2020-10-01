@@ -6,9 +6,10 @@ import {
     InternalServerErrorException,
     NotFoundException,
     Param,
-    Post, Put, Res
+    Post, Put, Query, Res
 } from "@nestjs/common";
 import {CancionService} from "./cancion.service";
+import {CancionEntity} from "./cancion.entity";
 
 @Controller('cancion')
 export class CancionController {
@@ -106,27 +107,31 @@ export class CancionController {
         }
     }
 
+
     @Get('vista/cancion')
     async vistaCancion(
-        @Res() res
+        @Res() res,
+        @Query() parametrosConsulta,
     ) {
         let resultadoEncotrado
-        try{
+        try {
             resultadoEncotrado = await this._cancionService.buscarTodasCanciones();
-        }catch (e) {
+        } catch (e) {
             throw new InternalServerErrorException('Error encontrando canciones')
         }
-        if(resultadoEncotrado){
+        if (resultadoEncotrado) {
             return res.render(
                 'inicio',
                 {
-                    arregloCanciones: resultadoEncotrado
+                    arregloCanciones: resultadoEncotrado,
+                    parametrosConsulta: parametrosConsulta
                 })
-        }else{
+        } else {
             throw new NotFoundException('No se encontraron canciones')
         }
 
     }
+
     @Get('vista/login')
     vistaLogin(
         @Res() res
@@ -138,10 +143,19 @@ export class CancionController {
 
     @Get('vista/crear')
     vistaCrear(
+        @Query() parametrosConsulta,
         @Res() res
     ) {
         return res.render(
             'crear',
+            {
+                cancion: undefined,
+                nombre: parametrosConsulta.nombre,
+                album: parametrosConsulta.album,
+                autor: parametrosConsulta.autor,
+                genero: parametrosConsulta.genero,
+                anio: parametrosConsulta.anio,
+            }
         )
     }
 
@@ -151,15 +165,15 @@ export class CancionController {
         @Res() res,
     ) {
         let respuestaCreacionCancion;
-        try{
+        try {
             respuestaCreacionCancion = await this._cancionService.crearUnaCancion(parametrosCuerpo);
-        }catch (e) {
+        } catch (e) {
             console.log(e);
             throw new InternalServerErrorException('Error creando cancion')
         }
-        if (respuestaCreacionCancion){
+        if (respuestaCreacionCancion) {
             return res.redirect('/cancion/vista/cancion')
-        }else{
+        } else {
             throw new InternalServerErrorException('Error creando cancion');
         }
     }
@@ -168,18 +182,67 @@ export class CancionController {
     async eliminarCancionDesdeVista(
         @Param() parametrosRuta,
         @Res() res
-    ){
+    ) {
         try {
-         const id = Number(parametrosRuta.id);
-         await this._cancionService.eliminarUnaCancion(id);
-         return res.redirect('/cancion/vista/cancion?mensaje=Cancion Eliminada');
-        }catch (e) {
+            const id = Number(parametrosRuta.id);
+            await this._cancionService.eliminarUnaCancion(id);
+            return res.redirect('/cancion/vista/cancion?mensaje=Cancion Eliminada');
+        } catch (e) {
             console.log(e)
             throw new InternalServerErrorException('Error eliminando cancion')
         }
     }
 
+    @Get('vista/editarCancion/:id')
+    async editarCancionVista(
+        @Query() parametrosConsulta,
+        @Param() parametrosRuta,
+        @Res() res
+    ) {
+        const id = Number(parametrosRuta.id)
+        let cancionEncontrada;
+        try {
+            cancionEncontrada = await this._cancionService.buscarUnaCancion(id);
+        } catch (e) {
+            console.error('Error del servidor');
+            return res.redirect('/cancion/vista/cancion?mensaje=Error buscando cancion');
+        }
+        if (cancionEncontrada) {
+            return res.render(
+                'crear',
+                {
+                    error: parametrosConsulta,
+                    cancion: cancionEncontrada
+                }
+            )
+        } else {
+            return res.redirect('/cancion/vista/cancion?mensaje=Cancion no encontrada');
+        }
+    }
 
+    @Post('editarCancionDesdeVista/:id')
+    async editarCancionDesdeVista(
+        @Param() parametrosRuta,
+        @Body() parametrosCuerpo,
+        @Res() res,
+    ) {
+        console.log('LLEGO AQUI');
+        const cancionEditada = {
+            id: Number(parametrosRuta.id),
+            nombre: parametrosCuerpo.nombre,
+            album: parametrosCuerpo.album,
+            autor: parametrosCuerpo.autor,
+            genero: parametrosCuerpo.genero,
+            anio: parametrosCuerpo.anio
+        } as CancionEntity;
+        try {
+            await this._cancionService.editarUnaCancion(cancionEditada);
+            return res.redirect('/cancion/vista/cancion?mensaje=Cancion editada');
+        } catch (error) {
+            console.error(error);
+            return res.redirect('/cancion/vista/cancion?mensaje=Error editando cancion');
+        }
+    }
 
 
 }
