@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import {CancionService} from "./cancion.service";
 import {CancionEntity} from "./cancion.entity";
+import {CancionCreateDto} from "./dto/cancion.create-dto";
 
 @Controller('cancion')
 export class CancionController {
@@ -165,6 +166,13 @@ export class CancionController {
         @Res() res,
     ) {
         let respuestaCreacionCancion;
+        const cancionValida = new CancionCreateDto();
+        cancionValida.nombre = parametrosCuerpo.nombre;
+        cancionValida.album = parametrosCuerpo.album;
+        cancionValida.genero = parametrosCuerpo.genero;
+        cancionValida.autor = parametrosCuerpo.autor;
+        cancionValida.anio = parametrosCuerpo.anio;
+
         try {
             respuestaCreacionCancion = await this._cancionService.crearUnaCancion(parametrosCuerpo);
         } catch (e) {
@@ -226,7 +234,13 @@ export class CancionController {
         @Body() parametrosCuerpo,
         @Res() res,
     ) {
-        console.log('LLEGO AQUI');
+        const cancionValida = new CancionCreateDto();
+        cancionValida.nombre = parametrosCuerpo.nombre;
+        cancionValida.album = parametrosCuerpo.album;
+        cancionValida.genero = parametrosCuerpo.genero;
+        cancionValida.autor = parametrosCuerpo.autor;
+        cancionValida.anio = parametrosCuerpo.anio;
+        
         const cancionEditada = {
             id: Number(parametrosRuta.id),
             nombre: parametrosCuerpo.nombre,
